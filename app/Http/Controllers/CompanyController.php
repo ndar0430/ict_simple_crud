@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Company;
 
 class CompanyController extends Controller
 {
@@ -13,7 +14,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $company_db = Company::all();
+
+        return view('company.view', compact('company_db'));
     }
 
     /**
@@ -23,7 +26,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $company_db = Company::all();
+
+        return view('company.add', compact('company_db'));
     }
 
     /**
@@ -34,7 +39,30 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validation of fields
+        $this->validate($request, [
+            'company_name' => 'required',
+            'company_address'   => 'required',
+            'zipcode'   => 'required',
+            'contactno'   => 'required',
+            'fax'   => 'required',
+            'emailaddress'   => 'required|unique:company_main',
+            'category'   => 'required',
+            ]);
+        
+            $company = new Company;
+            $company->company_name = $request['company_name'];
+            $company->company_address = $request['company_address'];
+            $company->zipcode = $request['zipcode'];
+            $company->contactno = $request['contactno'];
+            $company->fax = $request['fax'];
+            $company->emailaddress = $request['emailaddress'];
+            $company->category = $request['category'];
+            $company->save();
+
+            return redirect()->route('company.index')->with('message', 'Your listing is on pending!');
+
+
     }
 
     /**

@@ -22,11 +22,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::create('category_main', function (Blueprint $table) {
-            $table->increments('category_id');
-            $table->string('category_name');
-            $table->string('category_desc')->unique();
-        });
+
+        
         Schema::create('company_main', function (Blueprint $table) {
             $table->increments('company_id');
             $table->string('company_name');
@@ -34,8 +31,9 @@ class CreateUsersTable extends Migration
             $table->integer('zipcode');
             $table->integer('contactno');
             $table->integer('fax');
-            $table->integer('emailaddress');
-            $table->string('status');
+            $table->string('emailaddress');
+            $table->string('category');
+            $table->string('status')->nullable();;
             $table->timestamps();
         });
     }

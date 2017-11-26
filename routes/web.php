@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //verify email
 Route::get('/verify/{token}', 'VerifyController@verify')->name('verify');
+Route::resource('company', 'CompanyController');
