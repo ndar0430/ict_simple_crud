@@ -58,6 +58,7 @@ class CompanyController extends Controller
             $company->fax = $request['fax'];
             $company->emailaddress = $request['emailaddress'];
             $company->category = $request['category'];
+            $company->status = "Pending";
             $company->save();
 
             return redirect()->route('company.index')->with('message', 'Your listing is on pending!');
